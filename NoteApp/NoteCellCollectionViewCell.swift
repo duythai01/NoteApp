@@ -23,6 +23,7 @@ class NoteCellCollectionViewCell: UICollectionViewCell {
             textView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
             textView.textColor = UIColor(#colorLiteral(red: 0.5063894391, green: 0.5421293974, blue: 0.6122373939, alpha: 1))
             textView.isScrollEnabled = false
+            textView.isEditable = false
             textView.translatesAutoresizingMaskIntoConstraints = false
             textView.textContainer.lineBreakMode = .byTruncatingTail
             textView.layer.cornerRadius = 12
@@ -66,7 +67,7 @@ class NoteCellCollectionViewCell: UICollectionViewCell {
    
     var stackView: UIStackView = UIStackView()
     
-    
+ 
     
         override init(frame: CGRect) {
             super.init(frame: frame)
