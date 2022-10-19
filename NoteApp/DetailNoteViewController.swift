@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailNoteViewController: UIViewController {
+class DetailNoteViewController: UIViewController , UITextViewDelegate {
     let textView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
@@ -20,15 +20,29 @@ class DetailNoteViewController: UIViewController {
         textView.layer.cornerRadius = 15
         return textView
     }()
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            if(text == "\n") {
+                textView.resignFirstResponder()
+                return false
+            }
+            return true
+        }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(textView)
         configNavbar()
+        let listButton:[UIBarButtonItem] = [UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+                                            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+                                            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+                                            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil)]
+        self.textView.addDoneButton(listButton: listButton)
         
-        print(UINavigationController.navBarHeight())
+
         // Do any additional setup after loading the view.
     }
-    
+    @objc func tapDone(sender: Any) {
+           self.view.endEditing(true)
+       }
     private func configNavbar(){
     
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil)
@@ -73,10 +87,34 @@ class DetailNoteViewController: UIViewController {
 }
 
 
-extension UINavigationController {
-  static public func navBarHeight() -> CGFloat {
-    let nVc = UINavigationController(rootViewController: UIViewController(nibName: nil, bundle: nil))
-    let navBarHeight = nVc.navigationBar.frame.size.height
-    return navBarHeight
-  }
+
+extension UITextView {
+    
+    func addDoneButton(listButton: [UIBarButtonItem]) {
+        var test = [0,1,2,3,4,5,6,7]
+        var test2:[Int] = []
+        print(test)
+        test.forEach { x in
+            test2.append(x)
+            test2.append(009998)
+        }
+        test.append(1000)
+        print(test2)
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0,
+                                              y: 0.0,
+                                              width: UIScreen.main.bounds.size.width,
+                                              height: 44.0))//1
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
+//        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
+        print(listButton)
+        var setButton: [UIBarButtonItem] = []
+        setButton.append(flexible)
+        listButton.forEach { btn in
+            setButton.append(btn)
+            setButton.append(flexible)
+        }
+        print(listButton)
+        toolBar.setItems(setButton, animated: false)//4
+        self.inputAccessoryView = toolBar//5
+    }
 }
