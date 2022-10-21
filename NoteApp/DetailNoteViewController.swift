@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailNoteViewController: UIViewController , UITextViewDelegate {
+class DetailNoteViewController: UIViewController  {
     let textView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
@@ -20,21 +20,17 @@ class DetailNoteViewController: UIViewController , UITextViewDelegate {
         textView.layer.cornerRadius = 15
         return textView
     }()
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-            if(text == "\n") {
-                textView.resignFirstResponder()
-                return false
-            }
-            return true
-        }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(textView)
         configNavbar()
-        let listButton:[UIBarButtonItem] = [UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-                                            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-                                            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-                                            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil)]
+        let listButton:[UIBarButtonItem] = [UIBarButtonItem(image: UIImage(systemName: "tablecells"), style: .done, target: self, action: #selector(addTable(sender: ))),
+                                            UIBarButtonItem(image: UIImage(systemName: "textformat"), style: .done, target: self, action: #selector(textFormat(sender: ))),
+                                            UIBarButtonItem(image: UIImage(systemName: "checklist"), style: .done, target: self, action: #selector(addList(sender: ))),
+                                            UIBarButtonItem(image: UIImage(systemName: "camera"), style: .done, target: self, action: #selector(addImage(sender: ))),
+                                            UIBarButtonItem(image: UIImage(systemName: "pencil.tip.crop.circle"), style: .done, target: self, action: #selector(pencil(sender: ))),
+                                            UIBarButtonItem(title: "Xong", style: .plain, target: self, action: #selector(tapDone(sender: )))
+        ]
         self.textView.addDoneButton(listButton: listButton)
         
 
@@ -43,9 +39,40 @@ class DetailNoteViewController: UIViewController , UITextViewDelegate {
     @objc func tapDone(sender: Any) {
            self.view.endEditing(true)
        }
+    
+    @objc func addTable(sender: Any) {
+           print("add table")
+       }
+    @objc func textFormat(sender: Any) {
+           print("textFormat")
+       }
+    @objc func addList(sender: Any) {
+           print("addList")
+       }
+    @objc func addImage(sender: Any) {
+           print("addImage")
+       }
+    @objc func pencil(sender: Any) {
+           print("pencil")
+       }
+    
+    @objc func menu(sender: Any) {
+           print("menu")
+        
+        let menuVC = MenuDetailNoteViewController()
+        menuVC.title = "Menu Detail"
+        if let presentationController = menuVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium(), .large()] /// change to [.medium(), .large()] for a half *and* full screen sheet
+               }
+//        let menuVC = UINavigationController(rootViewController: )
+        present(menuVC, animated: true)
+//           navigationController?.pushViewController(MenuDetailNoteViewController(), animated: true)
+       }
+   
+//    navigationController?.pushViewController(vc, animated: true)
     private func configNavbar(){
     
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .done, target: self, action: #selector(menu(sender: )))
 
      
 //        navigationItem.title = "dafadfgafasfafs"

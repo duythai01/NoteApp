@@ -214,7 +214,7 @@ class LoginScreenController: UIViewController {
     }()
     @objc func loginWithAccount(_ sender: UIButton){
         print("Login with Account")
-        let vc = ViewController()
+        let vc = NoteViewController()
         let vc2 = UINavigationController(rootViewController: vc)
 //        self.navigationController?.pushViewController(vc, animated: true)
         vc2.modalPresentationStyle = .fullScreen

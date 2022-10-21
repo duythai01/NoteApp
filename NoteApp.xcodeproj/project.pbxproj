@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		183EA3DB28E5BAD20006B8A9 /* PrinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183EA3DA28E5BAD20006B8A9 /* PrinterestLayout.swift */; };
+		1898FFAF29005F1E0075A034 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1898FFAE29005F1E0075A034 /* NoteViewController.swift */; };
 		189DA90328DEFD2700B377C5 /* NoteCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DA90228DEFD2700B377C5 /* NoteCellCollectionViewCell.swift */; };
+		189DBB03290109E800D20947 /* MenuDetailNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DBB02290109E800D20947 /* MenuDetailNoteViewController.swift */; };
 		189DF4F328FC3ECC00317FAF /* DetailNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DF4F228FC3ECB00317FAF /* DetailNoteViewController.swift */; };
 		18A22F3328DD5DD600A77489 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A22F3228DD5DD600A77489 /* AppDelegate.swift */; };
 		18A22F3528DD5DD600A77489 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A22F3428DD5DD600A77489 /* SceneDelegate.swift */; };
@@ -16,14 +18,16 @@
 		18A22F3D28DD5DD600A77489 /* NoteApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18A22F3B28DD5DD600A77489 /* NoteApp.xcdatamodeld */; };
 		18A22F3F28DD5DD800A77489 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18A22F3E28DD5DD800A77489 /* Assets.xcassets */; };
 		18A22F4228DD5DD800A77489 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A22F4028DD5DD800A77489 /* LaunchScreen.storyboard */; };
-		18A22F4D28DD5E4300A77489 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A22F4C28DD5E4300A77489 /* NoteViewController.swift */; };
 		18A22F5628DD603000A77489 /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A22F5528DD603000A77489 /* LoginScreenController.swift */; };
 		5627D7B975FB8C0866A844B8 /* Pods_NoteApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB0AE567E2D35ECF0CDB3D01 /* Pods_NoteApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		183EA3DA28E5BAD20006B8A9 /* PrinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterestLayout.swift; sourceTree = "<group>"; };
+		1898FFAD29005EFB0075A034 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		1898FFAE29005F1E0075A034 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteViewController.swift; path = ../../../AnimationTest/AnimationTest/NoteViewController.swift; sourceTree = "<group>"; };
 		189DA90228DEFD2700B377C5 /* NoteCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCellCollectionViewCell.swift; sourceTree = "<group>"; };
+		189DBB02290109E800D20947 /* MenuDetailNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDetailNoteViewController.swift; sourceTree = "<group>"; };
 		189DF4F228FC3ECB00317FAF /* DetailNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNoteViewController.swift; sourceTree = "<group>"; };
 		18A22F2F28DD5DD600A77489 /* NoteApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A22F3228DD5DD600A77489 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +37,6 @@
 		18A22F3E28DD5DD800A77489 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18A22F4128DD5DD800A77489 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18A22F4328DD5DD800A77489 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18A22F4C28DD5E4300A77489 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteViewController.swift; path = ../../AnimationTest/AnimationTest/NoteViewController.swift; sourceTree = "<group>"; };
 		18A22F5528DD603000A77489 /* LoginScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenController.swift; sourceTree = "<group>"; };
 		6E6135A5523EE2787771A2D6 /* Pods-NoteApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteApp.debug.xcconfig"; path = "Target Support Files/Pods-NoteApp/Pods-NoteApp.debug.xcconfig"; sourceTree = "<group>"; };
 		C01BD2C86EC033AD906DE8AC /* Pods-NoteApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteApp.release.xcconfig"; path = "Target Support Files/Pods-NoteApp/Pods-NoteApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -52,6 +55,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1898FFA829005E840075A034 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				18A22F5528DD603000A77489 /* LoginScreenController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1898FFA929005EB60075A034 /* NoteView */ = {
+			isa = PBXGroup;
+			children = (
+				1898FFAE29005F1E0075A034 /* NoteViewController.swift */,
+				189DA90228DEFD2700B377C5 /* NoteCellCollectionViewCell.swift */,
+				183EA3DA28E5BAD20006B8A9 /* PrinterestLayout.swift */,
+			);
+			path = NoteView;
+			sourceTree = "<group>";
+		};
+		1898FFAC29005EF00075A034 /* DetailNoteView */ = {
+			isa = PBXGroup;
+			children = (
+				1898FFAD29005EFB0075A034 /* NoteViewController.swift */,
+				189DBB02290109E800D20947 /* MenuDetailNoteViewController.swift */,
+			);
+			path = DetailNoteView;
+			sourceTree = "<group>";
+		};
 		18A22F2628DD5DD600A77489 = {
 			isa = PBXGroup;
 			children = (
@@ -73,17 +103,16 @@
 		18A22F3128DD5DD600A77489 /* NoteApp */ = {
 			isa = PBXGroup;
 			children = (
+				1898FFAC29005EF00075A034 /* DetailNoteView */,
+				1898FFA929005EB60075A034 /* NoteView */,
+				1898FFA829005E840075A034 /* Login */,
 				18A22F3228DD5DD600A77489 /* AppDelegate.swift */,
 				18A22F3428DD5DD600A77489 /* SceneDelegate.swift */,
-				18A22F4C28DD5E4300A77489 /* NoteViewController.swift */,
 				18A22F3828DD5DD600A77489 /* Main.storyboard */,
 				18A22F3E28DD5DD800A77489 /* Assets.xcassets */,
 				18A22F4028DD5DD800A77489 /* LaunchScreen.storyboard */,
 				18A22F4328DD5DD800A77489 /* Info.plist */,
 				18A22F3B28DD5DD600A77489 /* NoteApp.xcdatamodeld */,
-				18A22F5528DD603000A77489 /* LoginScreenController.swift */,
-				189DA90228DEFD2700B377C5 /* NoteCellCollectionViewCell.swift */,
-				183EA3DA28E5BAD20006B8A9 /* PrinterestLayout.swift */,
 				189DF4F228FC3ECB00317FAF /* DetailNoteViewController.swift */,
 			);
 			path = NoteApp;
@@ -221,14 +250,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18A22F4D28DD5E4300A77489 /* NoteViewController.swift in Sources */,
 				189DF4F328FC3ECC00317FAF /* DetailNoteViewController.swift in Sources */,
 				18A22F3328DD5DD600A77489 /* AppDelegate.swift in Sources */,
 				183EA3DB28E5BAD20006B8A9 /* PrinterestLayout.swift in Sources */,
 				18A22F3528DD5DD600A77489 /* SceneDelegate.swift in Sources */,
 				18A22F3D28DD5DD600A77489 /* NoteApp.xcdatamodeld in Sources */,
 				189DA90328DEFD2700B377C5 /* NoteCellCollectionViewCell.swift in Sources */,
+				1898FFAF29005F1E0075A034 /* NoteViewController.swift in Sources */,
 				18A22F5628DD603000A77489 /* LoginScreenController.swift in Sources */,
+				189DBB03290109E800D20947 /* MenuDetailNoteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
