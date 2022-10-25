@@ -135,25 +135,7 @@ class LoginScreenController: UIViewController {
         return textField
     }()
     
-    var isDarkContentBackground = false
 
-    func statusBarEnterLightBackground() {
-        isDarkContentBackground = false
-        setNeedsStatusBarAppearanceUpdate()
-    }
-
-    func statusBarEnterDarkBackground() {
-        isDarkContentBackground = true
-        setNeedsStatusBarAppearanceUpdate()
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if isDarkContentBackground { // <5>
-                return .lightContent
-            } else {
-                return .darkContent
-            }
-    }
    
     @objc func hidePassword(button: UIButton){
         print("eee")
