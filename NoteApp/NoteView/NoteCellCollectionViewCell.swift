@@ -6,16 +6,15 @@
 //
 
 import UIKit
-
+protocol noteCellDelegate: class {
+    func delete(noteCell: NoteCellCollectionViewCell)
+}
 
 class NoteCellCollectionViewCell: UICollectionViewCell {
+  
+    
     static let identifier = "NoteCellCollectionViewCell"
-//    let containerView: UIView = {
-//            let view = UIView()
-//            view.translatesAutoresizingMaskIntoConstraints = false
-//        view.layer.cornerRadius = 15
-//            return view
-//        }()
+    weak var delegate: noteCellDelegate?
         
         let textView: UITextView = {
             let textView = UITextView()
@@ -33,7 +32,6 @@ class NoteCellCollectionViewCell: UICollectionViewCell {
 
     let deleteNoteBTN:UIButton = {
         let btn = UIButton()
-//        btn.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         btn.translatesAutoresizingMaskIntoConstraints = false
         let config = UIImage.SymbolConfiguration(
             pointSize: 22, weight: .medium, scale: .default)
@@ -43,13 +41,13 @@ class NoteCellCollectionViewCell: UICollectionViewCell {
         btn.heightAnchor.constraint(equalToConstant: 22).isActive = true
         btn.layer.cornerRadius = 11
         btn.clipsToBounds = true
-//        btn.backgroundColor = .blue
-        
         btn.addTarget(self, action: #selector(deleteNote(_:)), for: .touchUpInside)
         return btn
     }()
     
     @objc func deleteNote(_ sender: UIButton){
+        delegate?.delete(noteCell: self )
+        
         print("delete")
     }
     let noteLabel: UILabel = {
@@ -71,26 +69,15 @@ class NoteCellCollectionViewCell: UICollectionViewCell {
     
         override init(frame: CGRect) {
             super.init(frame: frame)
-//            contentView.translatesAutoresizingMaskIntoConstraints = false
-//            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.3).isActive = true
-//            textView.delegate = self
             contentView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
             contentView.addSubview(deleteNoteBTN)
             contentView.addSubview(noteLabel)
             contentView.addSubview(textView)
 
-//            contentView.addSubview(deleteNoteBTN)
-
-//            containerView.addSubview(textView)
-//
-//            textViewHeightContraint = textView.heightAnchor.constraint(equalToConstant: 0)
-//            containerViewWidthAnchor = containerView.widthAnchor.constraint(equalToConstant: 0)
 
             NSLayoutConstraint.activate([
-//                deleteNoteBTN.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
                 deleteNoteBTN.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
                 deleteNoteBTN.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
-//                deleteNoteBTN.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
                 
                 noteLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
                 noteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),

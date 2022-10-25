@@ -95,19 +95,38 @@ extension Note : Identifiable {
         return true
     }
     
-    static func getNotesWithFilter(nameContains: String?) -> [Note]{
+    static func deleteNoteWithlabael(label: String) -> Bool{
+        let moc = AppDelegate.managedObjectContext
+        let notes = Note.getNotesWithLabel(label: label)
+        for note in notes {
+            moc?.delete(note)
+        }
+        do {
+            try AppDelegate.managedObjectContext?.save()
+            
+        } catch  {
+            let nserror = error as NSError
+            print(" Delete \(label) is unsucessful Error: \(error), \(nserror.userInfo)")
+            return false
+        }
+        print(" Delete \(label) is sucessful")
+        return true
+    }
+    
+    
+    static func getNotesWithLabel(label: String?) -> [Note]{
         var result = [Note]()
         let moc = AppDelegate.managedObjectContext
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = Note.fetchRequest()
         var subPredicates = [NSPredicate]()
-        if nameContains != nil {
-            let prediacte1 = NSPredicate(format: "label contains[cd] %@", nameContains!) // tim kiem note ma trong label co "nameContains"
-            subPredicates.append(prediacte1)
-            
-        }
+//        if nameContains != nil {
+//            let prediacte1 = NSPredicate(format: "label contains[cd] %@", label!) // tim kiem note ma trong label co "nameContains"
+//            subPredicates.append(prediacte1)
+//
+//        }
         
-        if nameContains != nil {
-            let predicate2 = NSPredicate(format: "label == %@", nameContains!)  // tim chinh xac note co label == nameContains
+        if label != nil {
+            let predicate2 = NSPredicate(format: "label == %@", label!)  // tim chinh xac note co label == nameContains
             subPredicates.append(predicate2)
            
         }

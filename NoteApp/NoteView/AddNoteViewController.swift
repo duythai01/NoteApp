@@ -116,10 +116,15 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
         
        }
     private func configNavbar(){
-    
-//        UIBarButtonItem(title: "Xong", style: .plain, target: self, action: #selector(tapDone(sender: )))
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .plain, target: self, action: #selector(saveNote(sender: )))
+//        UIBarButtonItem(title: "Xong", style: .plain, target: self, action: #selector(tapDone(sender: )))
+////        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "chevron.backward"), style: .plain, target: self, action: nil)
+//        navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: self, action: #selector(backBtn(sender: ))),
+//                                             UIBarButtonItem(title: "Note", style: .plain, target: self, action: nil)
+//                                             ]
+
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(saveNote(sender: )))
         navigationItem.title = "Add Note"
 //        let attributes = [NSAttributedString.Key.font:  UIFont.systemFont(ofSize: 6, weight: .bold)]
 //        UINavigationBar.appearance().titleTextAttributes = attributes
@@ -130,8 +135,16 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
 //        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
     }
     
-
+    
+    @objc func backBtn(sender: Any) {
+        print("back")
+        NoteViewController().reloadView()
+//        navigationController?.popViewController(animated: true)
+            dismiss(animated: true, completion: nil)
+    }
 }
+
+
 
 
 
