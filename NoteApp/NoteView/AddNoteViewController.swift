@@ -6,9 +6,12 @@
 //
 
 import UIKit
+protocol addNoteDelegate {
+    func addNote(newNote:Note)
+}
 
 class AddNoteViewController: UIViewController, UITextViewDelegate {
-
+    var delegate: addNoteDelegate?
     let labelTextField :UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +76,7 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
 //      }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .green
+        view.backgroundColor = .white
         view.addSubview(labelTextField)
         view.addSubview(textView)
         let listButton:[UIBarButtonItem] = [UIBarButtonItem(image: UIImage(systemName: "tablecells"), style: .done, target: self, action: #selector(addTable(sender: ))),
@@ -104,41 +107,31 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func saveNote(sender: Any) {
-        Note.addNewNote(content: textView.text!, createdDate: Date(), id: 4, image: "ấ", label: labelTextField.text!)
+//        Note.addNewNote(content: textView.text!, createdDate: Date(), id: 4, image: "ấ", label: labelTextField.text!)
+        let new = Note.insertNewNote(content: textView.text!, createdDate: Date(), id: 4, image: "ấ", label: labelTextField.text!)
         
-        var characters: [Character] = ["C", "a", "f", "é"]
-        characters.reverse()
-        print(characters)
-        print(textView.text)
-        print(labelTextField.text)
+        print(new?.label)
            print("save note")
+        delegate?.addNote(newNote: new!)
         self.view.endEditing(true)
         
        }
     private func configNavbar(){
-
-//        UIBarButtonItem(title: "Xong", style: .plain, target: self, action: #selector(tapDone(sender: )))
-////        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "chevron.backward"), style: .plain, target: self, action: nil)
-//        navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: self, action: #selector(backBtn(sender: ))),
-//                                             UIBarButtonItem(title: "Note", style: .plain, target: self, action: nil)
-//                                             ]
 
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(saveNote(sender: )))
         navigationItem.title = "Add Note"
 //        let attributes = [NSAttributedString.Key.font:  UIFont.systemFont(ofSize: 6, weight: .bold)]
 //        UINavigationBar.appearance().titleTextAttributes = attributes
-        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 24, weight: .bold), .foregroundColor: UIColor.white]
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.backgroundColor = .systemBlue
-//        navigationController?.pushViewController(TitlePreviewViewController(), animated: true)
+//        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 24, weight: .bold), .foregroundColor: UIColor.black]
+//        navigationController?.navigationBar.tintColor = .black
+//        navigationController?.navigationBar.backgroundColor = .white
     }
     
     
     @objc func backBtn(sender: Any) {
         print("back")
-        NoteViewController().reloadView()
+//        NoteViewController().reloadView()
 //        navigationController?.popViewController(animated: true)
             dismiss(animated: true, completion: nil)
     }
