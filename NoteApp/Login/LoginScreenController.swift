@@ -12,7 +12,9 @@ import ViewAnimator
 class LoginScreenController: UIViewController {
     
    
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     let mainStackView:UIStackView  = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false

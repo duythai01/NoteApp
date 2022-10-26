@@ -121,20 +121,11 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(saveNote(sender: )))
         navigationItem.title = "Add Note"
-//        let attributes = [NSAttributedString.Key.font:  UIFont.systemFont(ofSize: 6, weight: .bold)]
-//        UINavigationBar.appearance().titleTextAttributes = attributes
-//        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 24, weight: .bold), .foregroundColor: UIColor.black]
-//        navigationController?.navigationBar.tintColor = .black
-//        navigationController?.navigationBar.backgroundColor = .white
+
     }
     
     
-    @objc func backBtn(sender: Any) {
-        print("back")
-//        NoteViewController().reloadView()
-//        navigationController?.popViewController(animated: true)
-            dismiss(animated: true, completion: nil)
-    }
+ 
 }
 
 
