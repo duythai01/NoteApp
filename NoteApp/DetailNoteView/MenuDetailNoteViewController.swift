@@ -30,7 +30,7 @@ class MenuDetailNoteViewController: UIViewController {
         btn.clipsToBounds = true
 //        btn.backgroundColor = .blue
         
-        btn.addTarget(self, action: #selector(deleteNote(_:)), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(back(_:)), for: .touchUpInside)
         return btn
     }()
     let fucntionStackView: UIStackView = {
@@ -120,7 +120,7 @@ class MenuDetailNoteViewController: UIViewController {
             let img = UIImageView()
             img.translatesAutoresizingMaskIntoConstraints = false
             let config = UIImage.SymbolConfiguration(
-                pointSize:28, weight: .light, scale: .default)
+                pointSize:28, weight: .medium, scale: .default)
             img.image = UIImage(systemName: icon, withConfiguration: config)
             img.tintColor = color
          
@@ -132,7 +132,7 @@ class MenuDetailNoteViewController: UIViewController {
             lable.translatesAutoresizingMaskIntoConstraints = false
             lable.text = lb
             lable.textColor = color
-            lable.font = .systemFont(ofSize: 17, weight: .light)
+            lable.font = .systemFont(ofSize: 17, weight: .medium)
             return lable
         }()
         let functionButon: UIView  = {
@@ -173,7 +173,7 @@ class MenuDetailNoteViewController: UIViewController {
             let img = UIImageView()
             img.translatesAutoresizingMaskIntoConstraints = false
             let config = UIImage.SymbolConfiguration(
-                pointSize:28, weight: .light, scale: .default)
+                pointSize:28, weight: .medium, scale: .default)
             img.image = UIImage(systemName: icon, withConfiguration: config)
             img.tintColor = color
          
@@ -185,7 +185,7 @@ class MenuDetailNoteViewController: UIViewController {
             lable.translatesAutoresizingMaskIntoConstraints = false
             lable.text = lb
             lable.textColor = color
-            lable.font = .systemFont(ofSize: 17, weight: .light)
+            lable.font = .systemFont(ofSize: 17, weight: .medium)
             return lable
         }()
         let functionButon: UIView  = {
@@ -232,13 +232,14 @@ class MenuDetailNoteViewController: UIViewController {
         ])
     }
     
-    @objc func deleteNote(_ sender: UIButton){
-        print("delete")
+    @objc func back(_ sender: UIButton){
+        print("back")
+        self.dismiss(animated: true, completion: nil)
     }
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
+        view.backgroundColor = UIColor(#colorLiteral(red: 0.8451035551, green: 0.8451035551, blue: 0.8451035551, alpha: 1))
         
         view.addSubview(deleteNoteBTN)
         view.addSubview(fucntionStackView)
@@ -317,9 +318,6 @@ class MenuDetailNoteViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        configFunctionBTN()
-  
-       
       
     }
     

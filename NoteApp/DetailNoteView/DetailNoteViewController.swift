@@ -87,7 +87,7 @@ class DetailNoteViewController: UIViewController  {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        view.backgroundColor = . green
+        view.backgroundColor = . white
         NSLayoutConstraint.activate([
 //
            

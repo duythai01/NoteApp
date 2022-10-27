@@ -20,7 +20,11 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
 //        textField.layer.cornerRadius = 10
         textField.placeholder = "Enter label"
     
-
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: textField.frame.height))
+        textField.leftViewMode = .always
+        textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: textField.frame.height))
+        textField.rightViewMode = .always
+        
         
        
         textField.backgroundColor = .white
@@ -38,8 +42,10 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
 //        textView.textColor = UIColor(#colorLiteral(red: 0.5063894391, green: 0.5421293974, blue: 0.6122373939, alpha: 1))
         textView.isScrollEnabled = true
         textView.isEditable = true
+        
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
 //        textView.layer.cornerRadius = 15
         return textView
     }()
@@ -104,21 +110,33 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
         configNavbar()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if self.isMovingFromParent {
+            if ( textView.text != "" ||  labelTextField.text != ""){
+                let new = Note.insertNewNote(content: textView.text!, createdDate: Date(), id: 4, image: "ấ", label: labelTextField.text!)
+                
+                print(new?.label)
+                   print("save note")
+                delegate?.addNote(newNote: new!)
+            }
+        }
+    }
+    
     @objc func saveNote(sender: Any) {
 //        Note.addNewNote(content: textView.text!, createdDate: Date(), id: 4, image: "ấ", label: labelTextField.text!)
-        let new = Note.insertNewNote(content: textView.text!, createdDate: Date(), id: 4, image: "ấ", label: labelTextField.text!)
-        
-        print(new?.label)
-           print("save note")
-        delegate?.addNote(newNote: new!)
+       
+       
         self.view.endEditing(true)
         
        }
     private func configNavbar(){
 
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveNote(sender: )))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(saveNote(sender: )))
         navigationItem.title = "Add Note"
+        navigationItem
 
     }
     
