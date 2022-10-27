@@ -97,7 +97,7 @@ extension Note : Identifiable {
     
     static func deleteNoteWithlabael(label: String) -> Bool{
         let moc = AppDelegate.managedObjectContext
-        let notes = Note.getNotesWithLabel(label: label)
+        let notes = Note.getNoteWithLabel(label: label)
         for note in notes {
             moc?.delete(note)
         }
@@ -114,7 +114,7 @@ extension Note : Identifiable {
     }
     
     
-    static func getNotesWithLabel(label: String?) -> [Note]{
+    static func getNoteWithLabel(label: String?) -> [Note]{
         var result = [Note]()
         let moc = AppDelegate.managedObjectContext
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = Note.fetchRequest()
@@ -130,6 +130,38 @@ extension Note : Identifiable {
             subPredicates.append(predicate2)
            
         }
+        
+        if subPredicates.count > 0 {
+            let compoundPredicate = NSCompoundPredicate.init(type: .or, subpredicates: subPredicates)
+            fetchRequest.predicate = compoundPredicate
+        }
+        
+        do {
+            result = try moc!.fetch(fetchRequest) as! [Note]
+        } catch  {
+            print("cam not fetch note \(error)")
+            return result
+        }
+       
+        return result
+    }
+    
+    static func getListNotesWithLabel(label: String?) -> [Note]{
+        var result = [Note]()
+        let moc = AppDelegate.managedObjectContext
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = Note.fetchRequest()
+        var subPredicates = [NSPredicate]()
+        if label != nil {
+            let prediacte1 = NSPredicate(format: "label contains[cd] %@", label!) // tim kiem note ma trong label co "nameContains"
+            subPredicates.append(prediacte1)
+
+        }
+        
+//        if label != nil {
+//            let predicate2 = NSPredicate(format: "label == %@", label!)  // tim chinh xac note co label == nameContains
+//            subPredicates.append(predicate2)
+//           
+//        }
         
         if subPredicates.count > 0 {
             let compoundPredicate = NSCompoundPredicate.init(type: .or, subpredicates: subPredicates)

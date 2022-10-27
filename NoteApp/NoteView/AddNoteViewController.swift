@@ -44,9 +44,7 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
         return textView
     }()
     
-//    func textViewDidChange(_ textView: UITextView) {
-//        print(textView.text)
-//    }
+
     @objc func tapDone(sender: Any) {
       
            self.view.endEditing(true)
