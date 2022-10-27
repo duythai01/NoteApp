@@ -117,7 +117,7 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
     private func configNavbar(){
 
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(saveNote(sender: )))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveNote(sender: )))
         navigationItem.title = "Add Note"
 
     }

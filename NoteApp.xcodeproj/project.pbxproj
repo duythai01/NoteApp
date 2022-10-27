@@ -29,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		183EA3DA28E5BAD20006B8A9 /* PrinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterestLayout.swift; sourceTree = "<group>"; };
-		1898FFAD29005EFB0075A034 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		1898FFAE29005F1E0075A034 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteViewController.swift; path = ../../../AnimationTest/AnimationTest/NoteViewController.swift; sourceTree = "<group>"; };
 		189DA90228DEFD2700B377C5 /* NoteCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		189DBB02290109E800D20947 /* MenuDetailNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDetailNoteViewController.swift; sourceTree = "<group>"; };
@@ -89,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				189DF4F228FC3ECB00317FAF /* DetailNoteViewController.swift */,
-				1898FFAD29005EFB0075A034 /* NoteViewController.swift */,
 				189DBB02290109E800D20947 /* MenuDetailNoteViewController.swift */,
 			);
 			path = DetailNoteView;
