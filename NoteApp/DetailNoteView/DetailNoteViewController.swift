@@ -6,8 +6,13 @@
 //
 
 import UIKit
+protocol updateNoteDelegate {
+    func updateNote()
+}
 
 class DetailNoteViewController: UIViewController  {
+    var delegate: updateNoteDelegate?
+    var idNote:String = ""
     let textView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
@@ -20,6 +25,16 @@ class DetailNoteViewController: UIViewController  {
         textView.layer.cornerRadius = 15
         return textView
     }()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if self.isMovingFromParent {
+//            if ( textView.text != "" ||  labelTextField.text != ""){
+//                Note.updateNote(id: idNote, label:, content:  textView.text, img: <#T##String#>)
+//                delegate?.updateNote()
+//            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(textView)
@@ -118,29 +133,29 @@ class DetailNoteViewController: UIViewController  {
 extension UITextView {
     
     func addDoneButton(listButton: [UIBarButtonItem]) {
-        var test = [0,1,2,3,4,5,6,7]
-        var test2:[Int] = []
-        print(test)
-        test.forEach { x in
-            test2.append(x)
-            test2.append(009998)
-        }
-        test.append(1000)
-        print(test2)
+//        var test = [0,1,2,3,4,5,6,7]
+//        var test2:[Int] = []
+//        print(test)
+//        test.forEach { x in
+//            test2.append(x)
+//            test2.append(009998)
+//        }
+//        test.append(1000)
+//        print(test2)
         let toolBar = UIToolbar(frame: CGRect(x: 0.0,
                                               y: 0.0,
                                               width: UIScreen.main.bounds.size.width,
                                               height: 44.0))//1
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
 //        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
-        print(listButton)
+//        print(listButton)
         var setButton: [UIBarButtonItem] = []
         setButton.append(flexible)
         listButton.forEach { btn in
             setButton.append(btn)
             setButton.append(flexible)
         }
-        print(listButton)
+//        print(listButton)
         toolBar.setItems(setButton, animated: false)//4
         self.inputAccessoryView = toolBar//5
     }

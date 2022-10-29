@@ -15,19 +15,19 @@ class NoteCellCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "NoteCellCollectionViewCell"
     weak var delegate: noteCellDelegate?
-        
-        let textView: UITextView = {
-            let textView = UITextView()
-            textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
-            textView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-            textView.textColor = UIColor(#colorLiteral(red: 0.5063894391, green: 0.5421293974, blue: 0.6122373939, alpha: 1))
-            textView.isScrollEnabled = false
-            textView.isEditable = false
-            textView.translatesAutoresizingMaskIntoConstraints = false
-            textView.textContainer.lineBreakMode = .byTruncatingTail
-            textView.layer.cornerRadius = 12
-            return textView
-        }()
+    var idNote:String = ""
+    let textView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
+        textView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        textView.textColor = UIColor(#colorLiteral(red: 0.5063894391, green: 0.5421293974, blue: 0.6122373939, alpha: 1))
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.layer.cornerRadius = 12
+        return textView
+    }()
         
 
     let deleteNoteBTN:UIButton = {
@@ -73,8 +73,7 @@ class NoteCellCollectionViewCell: UICollectionViewCell {
             contentView.addSubview(deleteNoteBTN)
             contentView.addSubview(noteLabel)
             contentView.addSubview(textView)
-
-
+            print(idNote)
             NSLayoutConstraint.activate([
                 deleteNoteBTN.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
                 deleteNoteBTN.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),

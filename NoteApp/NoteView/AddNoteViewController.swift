@@ -115,7 +115,7 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
 
         if self.isMovingFromParent {
             if ( textView.text != "" ||  labelTextField.text != ""){
-                let new = Note.insertNewNote(content: textView.text!, createdDate: Date(), id: 4, image: "ấ", label: labelTextField.text!)
+                let new = Note.insertNewNote(content: textView.text!, createdDate: Date(), id: UUID().uuidString, image: "ấ", label: labelTextField.text!)
                 
                 print(new?.label)
                    print("save note")
@@ -136,7 +136,6 @@ class AddNoteViewController: UIViewController, UITextViewDelegate {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(saveNote(sender: )))
         navigationItem.title = "Add Note"
-        navigationItem
 
     }
     
