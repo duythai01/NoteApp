@@ -15,34 +15,8 @@ class LoginScreenController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
-    let mainStackView:UIStackView  = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-//        stackView.backgroundColor = .purple
-        return stackView
-    }()
-    //--------------------------------------------
-    let spacingTopLogoView : UIView  = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant:  UIScreen.main.bounds.height * (1/3.2) * 0.6).isActive = true
-//        view.backgroundColor = .red
-        return view
-    }()
-    let spacingBottomLogoView : UIView  = {
-        let view = UIView()
-        return view
-    }()
-    let logoView:UIStackView  = {
-        let stackView = UIStackView()
-//        stackView.backgroundColor = .yellow
-        
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.heightAnchor.constraint(equalToConstant:  UIScreen.main.bounds.height * (1/5)).isActive = true
-        return stackView
-    }()
+    
+
     let logoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,30 +27,12 @@ class LoginScreenController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
-    //--------------------------------------------
-    let spacingLoginView : UIView  = {
-        let view = UIView()
-        return view
-    }()
-    
-    let spacingBottomLoginView : UIView  = {
-        let view = UIView()
-        view.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        return view
-    }()
-    let loginView:UIStackView  = {
-        let stackView = UIStackView()
-//        stackView.backgroundColor = .red
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 5
-        stackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/3).isActive = true
-        return stackView
-    }()
+
+
     
     let userTextField :UITextField = {
         let textField = UITextField()
-//        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.widthAnchor.constraint(equalToConstant:  UIScreen.main.bounds.width - 50).isActive = true
         textField.heightAnchor.constraint(equalToConstant:  60).isActive = true
         textField.layer.cornerRadius = 10
@@ -157,21 +113,16 @@ class LoginScreenController: UIViewController {
         
     }
     
-    let forgetPasswordView:UIStackView = {
-        let stackView = UIStackView()
-        stackView.heightAnchor.constraint(equalToConstant: 22).isActive = true
-        stackView.widthAnchor.constraint(equalToConstant:  UIScreen.main.bounds.width - 50).isActive = true
-//        stackView.alignment = .leading
-//        stackView.backgroundColor = .white
-        return stackView
-    }()
+
     let forgetPassWordLabel:UILabel = {
         let lb = UILabel()
         lb.text = "Forget password"
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.heightAnchor.constraint(equalToConstant: 22).isActive = true
         lb.textAlignment = .right
         lb.font = .systemFont(ofSize: 13, weight: .medium)
         lb.isUserInteractionEnabled = true
-                
+
         return lb
     }()
    
@@ -180,6 +131,7 @@ class LoginScreenController: UIViewController {
     }
     let loginBTN:UIButton = {
         let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.widthAnchor.constraint(equalToConstant:  UIScreen.main.bounds.width / 2).isActive = true
         btn.heightAnchor.constraint(equalToConstant:  60).isActive = true
         btn.backgroundColor = .white
@@ -205,22 +157,6 @@ class LoginScreenController: UIViewController {
         self.present(vc2, animated: true, completion: nil)
     }
     
-    //--------------------------------------------
-    let spacingSocialView : UIView  = {
-        let view = UIView()
-        return view
-    }()
-    
-    let SocialLoginView:UIStackView  = {
-        let stackView = UIStackView()
-//        stackView.backgroundColor = .blue
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.spacing = 10
-        return stackView
-    }()
-  
     
     let facebookBtn:UIButton = {
         let btn = UIButton()
@@ -309,13 +245,63 @@ class LoginScreenController: UIViewController {
 //        ]
 //        view.layer.addSublayer(gradientLayer)
         view.backgroundColor = UIColor(#colorLiteral(red: 0.2273415923, green: 0.727404654, blue: 0.5573658347, alpha: 1))
-        view .addSubview(mainStackView)
+        view .addSubview(logoImage)
+        view .addSubview(userTextField)
+        view .addSubview(passwordTextField)
+        view .addSubview(forgetPassWordLabel)
+        view .addSubview(loginBTN)
+        view .addSubview(facebookBtn)
+        view .addSubview(gooogleBtn)
+        view .addSubview(appleBtn)
+
         userTextField.delegate = self
         passwordTextField.delegate = self
 
         // Do any additional setup after loading the view.
     }
-    
+    private func configLayout(){
+        NSLayoutConstraint.activate([
+            // logoImage
+            logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:  UIScreen.main.bounds.height  * 0.1),
+            
+            //userTextField
+            userTextField.topAnchor.constraint(equalTo: logoImage.bottomAnchor,constant: 20),
+            userTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            //passwordTextField
+            passwordTextField.topAnchor.constraint(equalTo: userTextField.bottomAnchor,constant: 10),
+            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            //forgetPassWordLabel
+            forgetPassWordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 8),
+            forgetPassWordLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+          
+            
+            //loginBTN
+            loginBTN.topAnchor.constraint(equalTo: forgetPassWordLabel.bottomAnchor, constant: 10),
+            loginBTN.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            //facebookBtn
+            facebookBtn.topAnchor.constraint(equalTo: loginBTN.bottomAnchor, constant: 30),
+            facebookBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            facebookBtn.widthAnchor.constraint(equalToConstant:  UIScreen.main.bounds.width / 1.6),
+//            facebookBtn.heightAnchor.constraint(equalToConstant:  50),
+
+            
+            //googleBtn
+            gooogleBtn.topAnchor.constraint(equalTo: facebookBtn.bottomAnchor, constant: 8),
+            gooogleBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            //appleBtn
+            appleBtn.topAnchor.constraint(equalTo: gooogleBtn.bottomAnchor, constant: 8),
+            appleBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            
+        ])
+        let labelTapGesture = UITapGestureRecognizer(target: self, action: #selector(forgetPassWord(_:)))
+                forgetPassWordLabel.addGestureRecognizer(labelTapGesture)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -330,49 +316,12 @@ class LoginScreenController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mainStackView.frame = view.bounds
-        setUpMainStackView()
+//        mainStackView.frame = view.bounds
+        configLayout()
     }
     
 
-  
-    func setUpMainStackView(){
-            let mainStackViewConstraints = [
-                mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 10),
-                mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
-                mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
-                mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: 30)
-            
-            ]
-          
-            NSLayoutConstraint.activate(mainStackViewConstraints)
-//        let guestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelClicked(_:)))
-//
-//
-//        forgetPassWordLabel.addGestureRecognizer(guestureRecognizer)
-        logoView.addArrangedSubview(spacingTopLogoView)
-        logoView.addArrangedSubview(logoImage)
-//        logoView.addArrangedSubview(spacingBottomLogoView)
-        mainStackView.addArrangedSubview(logoView)
-        let labelTapGesture = UITapGestureRecognizer(target: self, action: #selector(forgetPassWord(_:)))
-        forgetPassWordLabel.addGestureRecognizer(labelTapGesture)
-
-        loginView.addArrangedSubview(spacingLoginView)
-        loginView.addArrangedSubview(userTextField)
-        loginView.addArrangedSubview(passwordTextField)
-        forgetPasswordView.addArrangedSubview(forgetPassWordLabel)
-        loginView.addArrangedSubview(forgetPasswordView)
-        loginView.addArrangedSubview(loginBTN)
-        loginView.addArrangedSubview(spacingBottomLoginView)
-        mainStackView.addArrangedSubview(loginView)
-        
  
-        SocialLoginView.addArrangedSubview(facebookBtn)
-        SocialLoginView.addArrangedSubview(gooogleBtn)
-        SocialLoginView.addArrangedSubview(appleBtn)
-        SocialLoginView.addArrangedSubview(spacingSocialView)
-        mainStackView.addArrangedSubview(SocialLoginView)
-    }
 
 }
 
@@ -405,3 +354,10 @@ extension UITextField {
    
    
 }
+//extension NSLayoutConstraint {
+//
+//    override public var description: String {
+//        let id = identifier ?? ""
+//        return "id: \(id), constant: \(constant)" //you may print whatever you want here
+//    }
+//}

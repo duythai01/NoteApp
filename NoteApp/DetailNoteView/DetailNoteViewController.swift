@@ -10,29 +10,56 @@ protocol updateNoteDelegate {
     func updateNote()
 }
 
-class DetailNoteViewController: UIViewController  {
+class DetailNoteViewController: UIViewController {
     var delegate: updateNoteDelegate?
     var idNote:String = ""
-    let textView: UITextView = {
+    var labelTextView:  UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
-        textView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        textView.textColor = UIColor(#colorLiteral(red: 0.5063894391, green: 0.5421293974, blue: 0.6122373939, alpha: 1))
-        textView.isScrollEnabled = true
+//        textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
+        textView.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        textView.textColor = .black
+        textView.isScrollEnabled = false
         textView.isEditable = true
+
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainer.lineBreakMode = .byTruncatingTail
         textView.layer.cornerRadius = 15
         return textView
     }()
+   
+    let textView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = UIColor(#colorLiteral(red: 0.09046945721, green: 0.1104127243, blue: 0.1513906419, alpha: 1))
+        textView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        textView.textColor = UIColor(#colorLiteral(red: 0.5063894391, green: 0.5421293974, blue: 0.6122373939, alpha: 1))
+        textView.text = "Will attempt to recover by breaking constraint<NSLayoutConstraint:0x60000025fed0 'assistantView.top' V:[_UIRemoteKeyboardPlaceholderView:0x7f7f98881d80]-(0)-[TUISystemInputAssistantView:0x7f7f98844160]   (active)>Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger. The methods in the UIConstraintBasedLayoutDebugging category on UIView listed in <UIKitCore/UIView.h> may also be helpful.2022-10-31 21:24:24.711772+0700 NoteApp[2149:47681] [HardwareKeyboard] -[UIApplication getKeyboardDevicePropertiesForSenderID:shouldUpdate:usingSyntheticEvent:], failed to fetch device property for senderID (778835616971358209) use primary keyboard info instead."
+        
+        
+        textView.isScrollEnabled = true
+        textView.isEditable = true
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.layer.cornerRadius = 15
+        let selectedRange: UITextRange? = textView.selectedTextRange
+        return textView
+    }()
+
+    func insertImageToTextView(photo: UIImage){
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage.scaleImageToSize(img: photo, size: CGSize(width: UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.height / 2.5))
+        let imageString = NSAttributedString(attachment: attachment)
+        let indexText = textView.text.endIndex
+        print(indexText)
+        textView.textStorage.insert(imageString, at: 0)
+        
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        print("note chon \(labelTextView.text ?? "")")
+        print("id note chon \(idNote)")
         if self.isMovingFromParent {
-//            if ( textView.text != "" ||  labelTextField.text != ""){
-//                Note.updateNote(id: idNote, label:, content:  textView.text, img: <#T##String#>)
-//                delegate?.updateNote()
-//            }
+            Note.updateNote(id: idNote, label: labelTextView.text, content:  textView.text, img: "img")
+            delegate?.updateNote()
         }
     }
     override func viewDidLoad() {
@@ -66,7 +93,13 @@ class DetailNoteViewController: UIViewController  {
        }
     @objc func addImage(sender: Any) {
            print("addImage")
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = self
+        present(picker, animated: true)
+        
        }
+   
     @objc func pencil(sender: Any) {
            print("pencil")
        }
@@ -88,6 +121,7 @@ class DetailNoteViewController: UIViewController  {
     private func configNavbar(){
     
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .done, target: self, action: #selector(menu(sender: )))
+        navigationItem.titleView = labelTextView
 
      
 //        navigationItem.title = "dafadfgafasfafs"
@@ -116,32 +150,27 @@ class DetailNoteViewController: UIViewController  {
 
         ])
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
-
+extension DetailNoteViewController:  UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else{return}
+         insertImageToTextView(photo: image)
+        
+        
+    }
+}
 
 extension UITextView {
     
     func addDoneButton(listButton: [UIBarButtonItem]) {
-//        var test = [0,1,2,3,4,5,6,7]
-//        var test2:[Int] = []
-//        print(test)
-//        test.forEach { x in
-//            test2.append(x)
-//            test2.append(009998)
-//        }
-//        test.append(1000)
-//        print(test2)
+
         let toolBar = UIToolbar(frame: CGRect(x: 0.0,
                                               y: 0.0,
                                               width: UIScreen.main.bounds.size.width,
@@ -159,4 +188,25 @@ extension UITextView {
         toolBar.setItems(setButton, animated: false)//4
         self.inputAccessoryView = toolBar//5
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+          guard textField.text != nil else { return }
+            textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+
+      }
+}
+
+extension UIImage {
+    
+    
+    class func scaleImageToSize(img: UIImage, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContext(size)
+        let point = CGPoint(x: 0,y :0)
+        img.draw(in: CGRect(origin: point, size: size))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        return scaledImage!
+    }
+    
 }

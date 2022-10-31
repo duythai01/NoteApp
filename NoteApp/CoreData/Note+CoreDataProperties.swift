@@ -95,10 +95,13 @@ extension Note : Identifiable {
         return true
     }
     
-    static func deleteNoteWithId(id: String) -> Bool{
+    static func deleteNoteWithId(id: String) {
         let moc = AppDelegate.managedObjectContext
         let noteNeededDelete = Note.getNoteWithId(id: id)
-        moc?.delete(noteNeededDelete)
+        for noteNeeded in noteNeededDelete {
+            moc?.delete(noteNeeded)
+        }
+        
 
         do {
             try AppDelegate.managedObjectContext?.save()
@@ -106,22 +109,17 @@ extension Note : Identifiable {
         } catch  {
             let nserror = error as NSError
             print(" Delete \(id) is unsucessful Error: \(error), \(nserror.userInfo)")
-            return false
+            
         }
         print(" Delete \(id) is sucessful")
-        return true
+       
     }
-    static func getNoteWithId(id: String?) -> Note{
-        var result:Note =  Note()
+    static func getNoteWithId(id: String?) -> [Note]{
+        var result:[Note] =  [Note]()
         let moc = AppDelegate.managedObjectContext
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = Note.fetchRequest()
         var subPredicates = [NSPredicate]()
-//        if nameContains != nil {
-//            let prediacte1 = NSPredicate(format: "label contains[cd] %@", label!) // tim kiem note ma trong label co "nameContains"
-//            subPredicates.append(prediacte1)
-//
-//        }
-        
+
         if id != nil {
             let predicate2 = NSPredicate(format: "id == %@", id!)  // tim chinh xac note co label == nameContains
             subPredicates.append(predicate2)
@@ -134,7 +132,7 @@ extension Note : Identifiable {
         }
         
         do {
-            result = try moc!.fetch(fetchRequest) as! Note
+            result = try moc!.fetch(fetchRequest) as! [Note]
         } catch  {
             print("cam not fetch note \(error)")
             return result
@@ -143,19 +141,36 @@ extension Note : Identifiable {
         return result
     }
     
-    static func updateNote(id:String, label: String, content: String, img: String){
-        var note  = getNoteWithId(id: id)
-        note.label = label
-        note.content = content
-        note.image = img
-        
-        do{
-            try AppDelegate.managedObjectContext?.save()
-        }catch{
-            let nserror = error as NSError
-            print("can not update  note")
-        }
-        print("update \(note.label) successfull")
+    static func updateNote(id:String, label: String, content: String, img: String) -> Bool{
+      
+        let entityDescription = NSEntityDescription.entity(
+                        forEntityName: "Note",
+                        in: AppDelegate.managedObjectContext!
+                    )
+        fetchRequest().entity = entityDescription
+        fetchRequest().predicate = NSPredicate(
+                        format: "id  == %@", id)
+       
+//        let notes  = getNoteWithId(id: id)
+       
+            do{
+                let  result = try AppDelegate.managedObjectContext?.fetch(fetchRequest()) ?? nil
+                print(" note can update : \(result![0].label)")
+                print(" id note can update : \(result![0].id)")
+                let note = result![0] as! NSManagedObject
+                note.setValue(label, forKey: "label")
+                note.setValue(content, forKey: "content")
+                note.setValue(img, forKey: "image")
+                try note.managedObjectContext?.save()
+               
+            } catch {
+                print("update failed")
+                return false
+            }
+            print("update  successfull")
+            return true
+      
+     
     }
     static func getNoteWithLabel(label: String?) -> [Note]{
         var result = [Note]()

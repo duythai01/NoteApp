@@ -6,7 +6,7 @@
 //
 
 import UIKit
-protocol noteCellDelegate: class {
+protocol noteCellDelegate: AnyObject {
     func delete(noteCell: NoteCellCollectionViewCell)
 }
 
