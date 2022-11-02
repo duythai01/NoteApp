@@ -34,7 +34,7 @@ class DetailNoteViewController: UIViewController {
         textView.textColor = UIColor(#colorLiteral(red: 0.5063894391, green: 0.5421293974, blue: 0.6122373939, alpha: 1))
         textView.text = "Will attempt to recover by breaking constraint<NSLayoutConstraint:0x60000025fed0 'assistantView.top' V:[_UIRemoteKeyboardPlaceholderView:0x7f7f98881d80]-(0)-[TUISystemInputAssistantView:0x7f7f98844160]   (active)>Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger. The methods in the UIConstraintBasedLayoutDebugging category on UIView listed in <UIKitCore/UIView.h> may also be helpful.2022-10-31 21:24:24.711772+0700 NoteApp[2149:47681] [HardwareKeyboard] -[UIApplication getKeyboardDevicePropertiesForSenderID:shouldUpdate:usingSyntheticEvent:], failed to fetch device property for senderID (778835616971358209) use primary keyboard info instead."
         
-        
+//        textView.textStorage.addAttributes(textView.typingAttributes, range:  )
         textView.isScrollEnabled = true
         textView.isEditable = true
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,15 +45,45 @@ class DetailNoteViewController: UIViewController {
     }()
 
     func insertImageToTextView(photo: UIImage){
+        let photoWidth = photo.size.width
+        let photoHeight = photo.size.height
+        
+        var heightNeeded: Float = Float(UIScreen.main.bounds.height / 2)
+        var widthNeeded: Float = Float((UIScreen.main.bounds.width - 40))
+        
+//        var scaleWidth: Float = 1.0
+//        var scaleHeight: Float = 1.0
+//
+//        let widthHeightRatio: Float = Float(photoWidth / photoHeight)
+//
+//        if (photoWidth > (UIScreen.main.bounds.width - 40) && photoHeight < UIScreen.main.bounds.height / 2 ) {
+//            scaleWidth =  Float(photoWidth) / Float((UIScreen.main.bounds.width - 40))
+//            widthNeeded = widthNeeded * scaleWidth
+//            heightNeeded = Float(photoHeight)
+//        }else {
+//            widthNeeded = Float(photoWidth)
+//            heightNeeded = Float(photoHeight)
+//        }
+      
+        
+        print(photo.size.width)
+        print(photo.size.height)
         let attachment = NSTextAttachment()
-        attachment.image = UIImage.scaleImageToSize(img: photo, size: CGSize(width: UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.height / 2.5))
+//        attachment.image = UIImage.scaleImageToSize(img: photo, size: CGSize(width: CGFloat(widthNeeded), height: CGFloat(widthNeeded)))
+        attachment.image = photo.imageResized(to:  CGSize(width: CGFloat(widthNeeded), height: CGFloat(widthNeeded)))
         let imageString = NSAttributedString(attachment: attachment)
         let indexText = textView.text.endIndex
         print(indexText)
-        textView.textStorage.insert(imageString, at: 0)
+        textView.textStorage.insert(imageString, at: getCursorTextView())
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerKeyboardNotifications()
+    }
     override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewWillDisappear(animated)
         print("note chon \(labelTextView.text ?? "")")
         print("id note chon \(idNote)")
@@ -62,6 +92,31 @@ class DetailNoteViewController: UIViewController {
             delegate?.updateNote()
         }
     }
+    
+    func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                             selector: #selector(keyboardWillShow(notification:)),
+                                             name: UIResponder.keyboardWillShowNotification,
+                                             object: nil)
+        NotificationCenter.default.addObserver(self,
+                                             selector: #selector(keyboardWillHide(notification:)),
+                                             name: UIResponder.keyboardWillHideNotification,
+                                             object: nil)
+    }
+@objc func keyboardWillShow(notification: NSNotification) {
+    let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+    let keyboardInfo = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue
+    let keyboardSize = keyboardInfo.cgRectValue.size
+    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+    textView.contentInset = contentInsets
+    textView.scrollIndicatorInsets = contentInsets
+}
+
+@objc func keyboardWillHide(notification: NSNotification) {
+    textView.contentInset = .zero
+    textView.scrollIndicatorInsets = .zero
+}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(textView)
@@ -84,6 +139,7 @@ class DetailNoteViewController: UIViewController {
     
     @objc func addTable(sender: Any) {
            print("add table")
+//        getCursorTextView()
        }
     @objc func textFormat(sender: Any) {
            print("textFormat")
@@ -91,12 +147,48 @@ class DetailNoteViewController: UIViewController {
     @objc func addList(sender: Any) {
            print("addList")
        }
+    func getCursorTextView() -> Int {
+      
+        var curentCursor = 0
+            
+//        let selectedRange: UITextRange? = textView.selectedTextRange
+//        print("day la selectedRTange: \(selectedRange)")
+        if let selectedRange = textView.selectedTextRange {
+
+            let cursorPosition = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
+            print(type(of: cursorPosition))
+            print("\(cursorPosition)")
+            curentCursor = cursorPosition
+        }
+        print(curentCursor)
+            return curentCursor - 1
+         
+    }
+    
     @objc func addImage(sender: Any) {
            print("addImage")
         let picker = UIImagePickerController()
-        picker.sourceType = .camera
         picker.delegate = self
-        present(picker, animated: true)
+        let actionSheet = UIAlertController(title: "Photo", message: "Choose a source", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "camera", style: .default, handler: {
+            (action:UIAlertAction) in
+                //code
+            picker.sourceType = .camera
+            self.present(picker, animated: true)
+           
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo", style: .default, handler: {
+            (action:UIAlertAction) in
+                //code
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true)
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true)
+      
+//        present(picker, animated: true)
         
        }
    
@@ -155,7 +247,7 @@ class DetailNoteViewController: UIViewController {
 
 extension DetailNoteViewController:  UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true)
+        picker.dismiss(animated: true,completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -208,5 +300,17 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return scaledImage!
     }
+    func imageResized(to target: CGSize) -> UIImage {
+        let ratio = min(
+                    target.height / size.height, target.width / size.width
+                )
+                let new = CGSize(
+                    width: size.width * ratio, height: size.height * ratio
+                )
+                let renderer = UIGraphicsImageRenderer(size: new)
+                return renderer.image { _ in
+                    self.draw(in: CGRect(origin: .zero, size: new))
+                }
+        }
     
 }
